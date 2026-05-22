@@ -1,27 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import "./App.css";
+import { Button } from "@/components/ui/button";
+import Features from "@/components/features";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <header>
-        <h1>Puppy</h1>
-      </header>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <div className='text-red-500'>Test</div>
+      <div>
+        <Features />
+        <h1 className="text-black-500">PetDuct</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#shop">Shop</a>
+            </li>
+            <li>
+              <a href="#brand">Brand</a>
+            </li>
+            <li>
+              <a href="#about">About Us</a>
+            </li>
+          </ul>
+        </nav>
+
+        <Button>Button</Button>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
