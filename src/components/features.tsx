@@ -1,15 +1,15 @@
-import { features } from "@/lib/data/features";
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
 
-const Features = () => {
+const Features = ({ title, description, icon }: Feature) => {
   return (
-    <div>
-      {features.map((feature) => (
-        <div key={feature.id}>
-          <img src={feature.icon} alt={feature.title} />
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
-        </div>
-      ))}
+    <div className="border rounded-md p-6">
+      <img src={icon} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   );
 };
