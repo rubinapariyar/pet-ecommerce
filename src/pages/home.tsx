@@ -5,78 +5,58 @@ import SectionTitle from "@/components/shared/section-title";
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Cards from "@/components/cards";
+import { cards } from "@/lib/data/cards";
+import { useEffect, useState } from "react";
+import CatCard from "@/components/cat-card";
+import type { CatBreedData } from "@/types/catBreeds.type";
+import QuoteGenerator from "@/components/quoteGenerator";
 
 function Home() {
+  const [page, setPage] = useState(0);
+  const [catBreeds, setCatBreeds] = useState<CatBreedData>();
+
+  useEffect(() => {
+    fetch("https://catfact.ninja/breeds")
+      .then((response) => response.json())
+      .then((data) => setCatBreeds(data));
+  }, []);
+  
   return (
     <>
-    <Header/>
+      <Header />
       <Hero />
+      <QuoteGenerator />
+     
       <div className="container mx-auto py-10 space-y-10">
-        <div>
-          <h2 className="mb-2">Justify Between</h2>
-          <div className="flex gap-2 justify-between border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="mb-2">Justify Evenly</h2>
-          <div className="flex gap-2 justify-evenly border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="mb-2">Justify Around</h2>
-          <div className="flex gap-2 justify-around border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
-        <div>
-          <h2 className="mb-2">Justify End</h2>
-          <div className="flex gap-2 justify-end border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
-        <div>
-          <h2 className="mb-2">Justify Center</h2>
-          <div className="flex gap-2 justify-center border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
-        <div>
-          <h2 className="mb-2">Justify Baseline</h2>
-          <div className="flex gap-2 justify-baseline border">
-            <div className="h-16 w-16 border rounded-xl p-2">Box 1</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 2</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 3</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 4</div>
-            <div className="h-16 w-16 border rounded-xl p-2">Box 5</div>
-          </div>
-        </div>
+        {cards.map((card, index) => (
+          <Cards
+            key={index}
+            title={card.title}
+            description={card.description}
+            image={card.image}
+          />
+        ))}
       </div>
+
+      {catBreeds && catBreeds.data.length > 0 && (
+        <div className="container mx-auto py-10 space-y-10">
+          <h2 className="text-2xl font-bold mb-4">Cat Breeds</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {catBreeds.data.map((breed) => (
+              <CatCard
+                key={breed.breed}
+                breed={breed.breed}
+                country={breed.country}
+                origin={breed.origin}
+                coat={breed.coat}
+                pattern={breed.pattern}
+              />
+            ))}
+          </div>
+          Current Page: {catBreeds.current_page}
+        </div>
+      )}
 
       <div className="container mx-auto px-4 m">
         <section className="py-10 bg-gray-100 px-8">
@@ -123,9 +103,8 @@ function Home() {
         </section>
 
         <Button>Button</Button>
-        
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

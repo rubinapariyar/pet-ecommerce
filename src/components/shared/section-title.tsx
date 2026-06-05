@@ -8,6 +8,11 @@ function SectionTitle({ title, description }:  SectionTitleProps) {
   return (
     <div>
        <div className="flex flex-col items-center max-w-3xl mx-auto text-center mb-10">
+        <img
+          src="pet1.jpg"
+          alt="Section Icon"
+          className="w-16 h-16 mb-4"
+        />
             <h2 className="text-2xl font-bold mb-4">{title}</h2>
             <p className="mb-6">
               {description}

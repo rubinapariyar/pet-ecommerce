@@ -1,8 +1,7 @@
-import hero from "@/assets/hero.png";
-
+import pet2 from "@/assets/images/pet2.png";
 const Hero = () => {
   return (
-    <div className="flex container mx-auto py-10 justify-between">
+    <div className="flex container mx-auto py-8 justify-between">
       <div>
         <h1 className="text-4xl font-bold mb-4">Put people first</h1>
         <p className="max-w-xl">
@@ -12,7 +11,7 @@ const Hero = () => {
         </p>
       </div>
       <div>
-        <img src={hero} />
+        <img src={pet2} />
       </div>
     </div>
   );
